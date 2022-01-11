@@ -26,6 +26,8 @@ int send_rand_logs(char *program_name){
 }
 
 int main(int argc, char **argv){
+    create_db(FD);
+
     initialize_rand();
     send_rand_logs(argv[0]);
 
