@@ -3,17 +3,16 @@ LIB:=liblogger.so
 LDFLAGS:=-llogger -lsqlite3
 SRC:=$(wildcard *.c)
 OBJS:=$(SRC:.c=.o)
-BIN:=print_log
 
 PREFIX:=/usr
 
-all: $(LIB) print_log
+all: $(LIB)
 
 $(LIB): logger.o
 	$(CC) -shared -o $(LIB) $^
 
 logger.o: logger.c
-	$(CC) -c -Wall -fpic $^
+	$(CC) -c -Wall -fpic $^ 
 
 install:
 	install -d $(PREFIX)/lib
@@ -26,4 +25,4 @@ uninstall:
 	$(RM) $(PREFIX)/include/logger.h
 
 clean:
-	$(RM) $(OBJS) $(LIB) $(BIN)
+	$(RM) $(OBJS) $(LIB)

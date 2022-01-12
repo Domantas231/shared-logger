@@ -13,7 +13,7 @@ static char log_types[3][10] = {"INFO", "WARNING", "ERROR"};
 static int create_db(){
     char *err;
 
-    char *table = "CREATE TABLE Logs IF NOT EXISTS("
+    char *table = "CREATE TABLE if not exists Logs("
                         "id INTEGER PRIMARY KEY,"
                         "program_name TEXT NOT NULL,"
                         "log_type TEXT NOT NULL,"
@@ -31,7 +31,7 @@ static int create_db(){
 
 int open_log(){
     if(sqlite3_open(FD, &DB) != SQLITE_OK){
-        printf("Failed to OPEN database.");
+        printf("Failed to OPEN database. \n");
         return 1;
     }
 
@@ -42,7 +42,8 @@ int open_log(){
 
 int close_log(){
     if(sqlite3_close(DB) != SQLITE_OK){
-        printf("Failed to CLOSE database.");
+        printf("Failed to CLOSE database. \n");
+        printf("%d", sqlite3_close(DB));
         return 1;
     }
 
