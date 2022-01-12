@@ -15,12 +15,6 @@ $(LIB): logger.o
 logger.o: logger.c
 	$(CC) -c -Wall -fpic $^
 
-print_log: print_log.o
-	$(CC) -L$(PWD) -o $(BIN) $^ $(LDFLAGS)
-
-print_log.o: print_log.c
-	$(CC) -c $^
-
 install:
 	install -d $(PREFIX)/lib
 	install -d $(PREFIX)/include

@@ -5,8 +5,6 @@
 #include <sqlite3.h>
 #include <unistd.h>
 
-#define FD "var/log/logger.db"
-
 int initialize_rand(){
     time_t t;
     srand((unsigned) time(&t));
@@ -18,7 +16,8 @@ int send_rand_logs(char *program_name){
     while(1){
         char msg[20];
         sprintf(msg, "%d", rand() % 120);
-        add_log(FD, program_name, 1, msg);
+        write_log(program_name, WARNING, msg);
+
         sleep(10);
     }
 
@@ -26,10 +25,11 @@ int send_rand_logs(char *program_name){
 }
 
 int main(int argc, char **argv){
-    create_db(FD);
+    open_log();
 
     initialize_rand();
     send_rand_logs(argv[0]);
 
+    close_log();
     return 0;
 }
